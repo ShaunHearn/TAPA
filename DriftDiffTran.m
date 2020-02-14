@@ -39,13 +39,13 @@ PlotCount = 0;
 doPlotImage = 0; % set to 1 to draw the image
 
 % Simulation = 'PNJctEqBias';
- Simulation = 'NewSimulationChoice';
+ Simulation = 'PNJctEqBias';
 
 if strcmp(Simulation,'GaussianTwoCar')
     eval('SetGaussian2CarParas');
-elseif strcmp(Simulation,'GaussianTwoCarRC')
-    eval('SetGaussian2CarParasRCOnly');
-    elseif strcmp(Simulation,'NewSimulationChoice')
+elseif strcmp(Simulation,'GaussianTwoCarRc')
+    eval('NewSimulationChoice');
+elseif strcmp(Simulation,'NewSimulationChoice')
     eval('SetGaussian2CarParasRCOnly');
 elseif strcmp(Simulation,'GaussianTwoCarRCLinGrad')
     eval('SetGaussian2CarParasRCOnlyLinGrad');
@@ -63,7 +63,7 @@ elseif strcmp(Simulation,'PNJctEqBias')
     eval('SetPNJctParasEqBCBias');
 end
 
-FormGv(nx,LVbc,RVbc); % Poisson equation set Gv and Bv
+FormGv(nx,mean(LVbc),mean(RVbc)); % Poisson equation set Gv and Bv
 [L,U] = lu(Gv);
 
 Mun = ones(1,nx)*MunSi;
@@ -91,9 +91,9 @@ else
     p0 = zeros(1,nx);
 end
 
-n0 = n0 + npDisturbance;
+n0 = n0;% + npDisturbance;
 if TwoCarriers == 1
-    p0 = p0 + npDisturbance;
+    p0 = p0;% + npDisturbance;
 end
 
 divFn = zeros(1,nx);
@@ -134,7 +134,7 @@ PlotVals(nx,dx,'on',l,TStop,PlotYAxis);
 SimulateFlow(TStop,nx,dx,dtMax,JBC,RC,U,L,PlDelt)
 
 if SecondSim == 1
-    FormGv(nx,LVbc2,RVbc); % Poisson equation set Gv and Bv
+    FormGv(nx,mean(LVbc2),mean(RVbc)); % Poisson equation set Gv and Bv
     [L,U] = lu(Gv);
 
     SimulateFlow(TStop2,nx,dx,dtMax,JBC,RC,U,L,PlDelt)

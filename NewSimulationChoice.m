@@ -11,8 +11,8 @@ xm = x(1:nx-1) + 0.5*dx;
 
 %Nd = 1e16*1e6;
 %Nd = linspace(1e16,20e16,nx); % Const. 1/cm3 (100 cm/m)^3
-NdRange = linspace(36,40,nx);
-Nd = exp(NdRange);
+%NdRange = linspace(36,40,nx);
+%Nd = exp(NdRange);
 NetDoping = ones(1,nx).*Nd; % doping
 
 x0 = l/2;
